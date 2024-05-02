@@ -23,6 +23,23 @@ builder.Services.AddDbContext<NoteDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//configure CORS
+//define a unique string
+string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+// define allowed domains, in this case "http://example.com" and "*" = all
+//    domains, for testing purposes only.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+      builder =>
+      {
+        //   builder.WithOrigins(
+        //     "http://localhost:5173");
+        builder.AllowAnyOrigin();
+      });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,6 +48,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
 
