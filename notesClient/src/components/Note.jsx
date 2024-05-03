@@ -1,17 +1,17 @@
 import React from 'react'
 import { MdDeleteForever } from 'react-icons/md'
 
-const Note = () => {
-  return (
-    <div className='note'>
-        <span>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</span>
-        <div className='note-footer'>
-            <small>13/04/2021</small>
-            <MdDeleteForever className='delete-icon' size='1.3em' />
+const Note = ({ id, text, date }) => {
+    return (
+        <div className='note'>
+            <span>{text}</span>
+            <div className='note-footer'>
+                <small>{date}</small>
+                <MdDeleteForever className='delete-icon' size='1.3em' />
+            </div>
+
         </div>
-    
-    </div>
-  )
+    )
 }
 
 export default Note
