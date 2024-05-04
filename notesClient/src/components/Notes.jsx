@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Note from './Note';
 import AddNote from './AddNote';
 import Search from './Search'
-import { nanoid } from 'nanoid'
 
 const Notes = () => {
     const [notes, setNotes] = useState([]);
