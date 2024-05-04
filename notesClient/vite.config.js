@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3000, // Client port
     proxy: {
       '/api': {
-        target: 'http://localhost:5111', // Server port
+        target: 'https://notesapp20240504170338.azurewebsites.net', // Server port
         changeOrigin: true,
         secure: false,
         ws: true,

@@ -51,7 +51,14 @@ namespace notesApp.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(noteItem).State = EntityState.Modified;
+            var existingNoteItem = await _context.NoteItems.FindAsync(id);
+            if (existingNoteItem == null)
+            {
+                return NotFound();
+            }
+
+            existingNoteItem.Text = noteItem.Text;
+            existingNoteItem.Date = noteItem.Date;
 
             try
             {

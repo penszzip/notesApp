@@ -30,6 +30,9 @@ nupkg/
 *.user
 *.userosscache
 *.sln.docstates
+.vs
+Properties/PublishProfiles/
+Properties/ServiceDependencies/
 
 # Build results
 [Dd]ebug/
