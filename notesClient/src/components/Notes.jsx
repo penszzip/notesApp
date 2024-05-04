@@ -1,36 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import Note from './Note';
 import AddNote from './AddNote';
+import Search from './Search'
 import { nanoid } from 'nanoid'
 
 const Notes = () => {
     const [notes, setNotes] = useState([
         {
-            id: 1,
+            id: nanoid(),
             text: 'This is a note!',
             date: '15/04/2024',
         },
         {
-            id: 2,
+            id: nanoid(),
             text: 'This is a note!',
             date: '17/04/2024',
         },
         {
-            id: 3,
+            id: nanoid(),
             text: 'This is a note!',
             date: '19/04/2024',
         },
         {
-            id: 4,
+            id: nanoid(),
             text: 'This is a note!',
             date: '20/04/2024',
         },
         {
-            id: 5,
+            id: nanoid(),
             text: 'This is a note!',
             date: '21/04/2024',
         },
     ]);
+
+    const [searchText, setSearchText] = useState('');
 
     // useEffect(() => {
     //     const fetchNotes = async () => {
@@ -60,11 +63,32 @@ const Notes = () => {
         setNotes(newNotes);
     }
 
+    const handleDeleteNote = (id) => {
+        const newNotes = notes.filter(note => note.id !== id);
+        //make fetch DELETE to server /api/notes
+        setNotes(newNotes);
+    }
+
     return (
-        <div className='notes-list'>
-            {notes.map((note) => <Note key={note.id} text={note.text} date={note.date} />)}
-            <AddNote handleAddNote={handleAddNote}/>
-        </div>     
+        <>
+            <Search handleSearchNote={setSearchText} />
+            <div className='notes-list'>
+                {notes
+                    .filter((note) =>
+                        note.text.toLowerCase().includes(searchText)
+                    )
+                    .map((note) =>
+                        <Note 
+                        key={note.id} 
+                        id={note.id} 
+                        text={note.text} 
+                        date={note.date} 
+                        handleDeleteNote={handleDeleteNote} 
+                        />
+                    )}
+                <AddNote handleAddNote={handleAddNote} />
+            </div>
+        </>
     )
 }
 
