@@ -9,7 +9,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <div className={darkMode && "dark-mode"}>
+    <div className={darkMode ? "dark-mode" : ""}>
       <div className="container">
         <Header darkMode={darkMode} handleToggleDarkMode={setDarkMode} />
         <Notes />

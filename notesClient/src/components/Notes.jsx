@@ -5,68 +5,67 @@ import Search from './Search'
 import { nanoid } from 'nanoid'
 
 const Notes = () => {
-    const [notes, setNotes] = useState([
-        {
-            id: nanoid(),
-            text: 'This is a note!',
-            date: '15/04/2024',
-        },
-        {
-            id: nanoid(),
-            text: 'This is a note!',
-            date: '17/04/2024',
-        },
-        {
-            id: nanoid(),
-            text: 'This is a note!',
-            date: '19/04/2024',
-        },
-        {
-            id: nanoid(),
-            text: 'This is a note!',
-            date: '20/04/2024',
-        },
-        {
-            id: nanoid(),
-            text: 'This is a note!',
-            date: '21/04/2024',
-        },
-    ]);
+    const [notes, setNotes] = useState([]);
 
     const [searchText, setSearchText] = useState('');
 
-    // useEffect(() => {
-    //     const fetchNotes = async () => {
-    //         fetch("http://localhost:5111/api/notes")
-    //             .then(response => {
-    //                 if (!response.ok) {
-    //                     throw new Error(`HTTP error! status: ${response.status}`);
-    //                 }
-    //                 return response.json();
-    //             })
-    //             .then(data => console.log(data))
-    //             .catch(error => console.log('There was a problem with the fetch operation: ' + error.message));
-    //     }
-    //     fetchNotes()
-    // }, [])
+    useEffect(() => {
+        const fetchNotes = async () => {
+            try {
+                const response = await fetch("/api/notes");
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                setNotes(data);
+            } catch (error) {
+                console.log('There was a problem with the fetch operation: ' + error.message);
+            }
+        }
+        fetchNotes()
+    }, [])
 
     //Function to add note which is passed to AddNote component
-    const handleAddNote = (text) => {
+    const handleAddNote = async (text) => {
         const date = new Date();
         const newNote = {
-            id: nanoid(),
             text: text,
-            date: date.toLocaleDateString()
+            date: date.toISOString()
         };
         //make fetch POST request to server /api/notes 
-        const newNotes = [...notes, newNote];
-        setNotes(newNotes);
+        try {
+            const response = await fetch('/api/notes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newNote),
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            };
+            const data = await response.json();
+            const newNotes = [...notes, data];
+            setNotes(newNotes);
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
-    const handleDeleteNote = (id) => {
-        const newNotes = notes.filter(note => note.id !== id);
+    const handleDeleteNote = async (id) => {
         //make fetch DELETE to server /api/notes
-        setNotes(newNotes);
+        try {
+            const response = await fetch(`/api/notes/${id}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            };
+            const newNotes = notes.filter(note => note.id !== id);
+            setNotes(newNotes);
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
     return (
@@ -78,12 +77,12 @@ const Notes = () => {
                         note.text.toLowerCase().includes(searchText)
                     )
                     .map((note) =>
-                        <Note 
-                        key={note.id} 
-                        id={note.id} 
-                        text={note.text} 
-                        date={note.date} 
-                        handleDeleteNote={handleDeleteNote} 
+                        <Note
+                            key={note.id}
+                            id={note.id}
+                            text={note.text}
+                            date={note.date}
+                            handleDeleteNote={handleDeleteNote}
                         />
                     )}
                 <AddNote handleAddNote={handleAddNote} />

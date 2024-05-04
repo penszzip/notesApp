@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using notesApp.Models;
 
@@ -11,9 +12,11 @@ using notesApp.Models;
 namespace notesApp.Migrations
 {
     [DbContext(typeof(NoteDbContext))]
-    partial class NoteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240504032422_AddSeedData")]
+    partial class AddSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,32 +46,32 @@ namespace notesApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            Date = new DateTime(2024, 5, 3, 23, 28, 1, 767, DateTimeKind.Local).AddTicks(8535),
+                            Id = -1,
+                            Date = new DateTime(2024, 5, 3, 23, 24, 21, 631, DateTimeKind.Local).AddTicks(2075),
                             Text = "First note"
                         },
                         new
                         {
-                            Id = 2,
-                            Date = new DateTime(2024, 5, 3, 23, 28, 1, 767, DateTimeKind.Local).AddTicks(8586),
+                            Id = -2,
+                            Date = new DateTime(2024, 5, 3, 23, 24, 21, 631, DateTimeKind.Local).AddTicks(2124),
                             Text = "Second note"
                         },
                         new
                         {
-                            Id = 3,
-                            Date = new DateTime(2024, 5, 3, 23, 28, 1, 767, DateTimeKind.Local).AddTicks(8588),
+                            Id = -3,
+                            Date = new DateTime(2024, 5, 3, 23, 24, 21, 631, DateTimeKind.Local).AddTicks(2127),
                             Text = "Third note"
                         },
                         new
                         {
-                            Id = 4,
-                            Date = new DateTime(2024, 5, 3, 23, 28, 1, 767, DateTimeKind.Local).AddTicks(8589),
+                            Id = -4,
+                            Date = new DateTime(2024, 5, 3, 23, 24, 21, 631, DateTimeKind.Local).AddTicks(2128),
                             Text = "Fourth note"
                         },
                         new
                         {
-                            Id = 5,
-                            Date = new DateTime(2024, 5, 3, 23, 28, 1, 767, DateTimeKind.Local).AddTicks(8591),
+                            Id = -5,
+                            Date = new DateTime(2024, 5, 3, 23, 24, 21, 631, DateTimeKind.Local).AddTicks(2130),
                             Text = "Fifth note"
                         });
                 });
