@@ -11,10 +11,12 @@ const Notes = () => {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const API_ROUTE = "https://notesapp20240504170338.azurewebsites.net";
+
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const response = await fetch("/api/notes");
+        const response = await fetch(`${API_ROUTE}/api/notes`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -39,7 +41,7 @@ const Notes = () => {
     };
     //make fetch POST request to server /api/notes
     try {
-      const response = await fetch("/api/notes", {
+      const response = await fetch(`${API_ROUTE}/api/notes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +62,7 @@ const Notes = () => {
   const handleDeleteNote = async (id) => {
     //make fetch DELETE to server /api/notes
     try {
-      const response = await fetch(`/api/notes/${id}`, {
+      const response = await fetch(`${API_ROUTE}/api/notes/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {
