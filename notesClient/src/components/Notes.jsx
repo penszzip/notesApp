@@ -81,7 +81,7 @@ const Notes = () => {
 
       <div className="notes-list">
         {isLoading ? (
-            Array.from({ length: 8 }).map((_, i) => <Skeleton key={i} />)
+            Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} />)
         ) : (
           <>
             {notes
