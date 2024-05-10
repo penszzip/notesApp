@@ -9,7 +9,7 @@
 
 .text {
     background-color: rgb(235, 235, 235);
-    flex-grow: 9.5;
+    flex-grow: 8;
     margin-bottom: 1rem;
     border-radius: 10px;
 	padding: 1rem;
@@ -17,7 +17,16 @@
 
 .footer {
     background-color: rgb(235, 235, 235);
-    flex-grow: 0.5;
+    flex-grow: 1;
+    border-radius: 10px;
+	padding: 1rem;
+}
+
+.skeleton-header  {
+    background-color: rgb(235, 235, 235);
+    flex-grow: 1;
+    margin-bottom: 1rem;
+    width: 50%;
     border-radius: 10px;
 	padding: 1rem;
 }
@@ -32,11 +41,20 @@
 
 /* animation */
 @keyframes pulse {
+    /* 50% {
+        opacity: 0.6;
+    } */
+    0% {
+        background-color: rgb(245, 245, 245);
+    }
     50% {
-        opacity: .5;
+        background-color: rgb(230, 230, 230);
+    }
+    100% {
+        background-color: rgb(245, 245, 245);
     }
 }
 
 .animate-pulse {
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: pulse 2.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
